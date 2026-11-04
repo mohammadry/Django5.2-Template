@@ -1,0 +1,7 @@
+Django 5.2 > , 5.3<
+django-debug-toolbar==8.0.0
+pillow==13.0.0
+psycopg==3.3.6
+psycopg-binary==3.3.6
+python-decouple==3.8
+
