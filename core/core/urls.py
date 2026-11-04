@@ -25,16 +25,24 @@ urlpatterns = [
     path("", include("website.urls")),
 ]
 
+
 if settings.COMINGSOON:
     urlpatterns.insert(
         0, re_path(r"^", TemplateView.as_view(template_name="comingsoon.html"))
     )
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+
+if settings.SHOW_DEBUGGER_TOOLBAR:
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls')),
+    ]
+
 
 handler400 = "core.error_views.error_400"  # bad_request
 handler403 = "core.error_views.error_403"  # permission_denied
