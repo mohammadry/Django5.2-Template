@@ -8,7 +8,7 @@ from ..validators import validate_iranian_cellphone_number
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_profile")
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     phone_number = models.CharField(max_length=20, validators=[validate_iranian_cellphone_number])
@@ -28,7 +28,6 @@ class Profile(models.Model):
     
 
 @receiver(post_save, sender=User)
-def save_profile(sender, instance, created, **kwargs):
+def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance, pk=instance.pk)
-    instance.profile.save()
+        Profile.objects.create(user=instance, pk=instance.pk)   
